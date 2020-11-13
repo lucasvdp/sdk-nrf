@@ -4,15 +4,26 @@
 # SPDX-License-Identifier: LicenseRef-BSD-5-Clause-Nordic
 #
 
-config NCS_SAMPLES_DEFAULTS
-	bool "Enable NCS sample default settings"
-	default n
+choice NCS_SAMPLES_DEFAULTS
+	prompt "Sample defaults"
+
+config NCS_SAMPLES_DEFAULTS_NORMAL
+	bool "Development"
 	imply LOG
 	imply LOG_MINIMAL
 	imply ASSERT
 	imply HW_STACK_PROTECTION if ARCH_HAS_STACK_PROTECTION
-	help
-	  Use the default configuration for NCS samples.
+
+config NCS_SAMPLES_DEFAULTS_TINY
+	bool "Reduced memory footprint"
+	imply LOG
+	imply LOG_MINIMAL
+	imply ASSERT
+	imply HW_STACK_PROTECTION if ARCH_HAS_STACK_PROTECTION
+	imply ASSERT_NO_COND_INFO
+	imply ASSERT_NO_MSG_INFO
+
+endchoice
 
 config NCS_SAMPLE_EMPTY_APP_CORE_CHILD_IMAGE
 	bool "Enable empty_app_core as a child image"
@@ -29,6 +40,6 @@ if LOG
 # Omit the `prompt` to prevent it from appearing twice in two diffent places.
 
 config LOG_DEFAULT_LEVEL
-	default 1 if NCS_SAMPLES_DEFAULTS
+	default 1 if NCS_SAMPLES_DEFAULTS_NORMAL
 
 endif # LOG
