@@ -12,7 +12,7 @@ All notable changes to this project are documented in this file.
 liblwm2m_carrier 0.20.0
 ***********************
 
-Release for modem firmware versions 1.3.0.
+Release for modem firmware version 1.3.0.
 
 Certification status
 ====================
@@ -22,8 +22,11 @@ For certification status, see `Mobile network operator certifications`_.
 Changes
 =======
 
+* CA certificates are no longer provided by the LwM2M carrier library.
+   * Application is now expected to store CA certificates into the modem security tags.
+   * Added a new event :c:macro:`LWM2M_CARRIER_EVENT_CERTS_INIT` that instructs the application to provide the CA certificate security tags to the LwM2M carrier library.
 * Renamed the event :c:macro:`LWM2M_CARRIER_BSDLIB_INIT` to :c:macro:`LWM2M_CARRIER_EVENT_MODEM_INIT`
-* New error code :c:macro:`LWM2M_CARRIER_ERROR_SERVICE_UNAVAILABLE` indicates that the LwM2M server is unavailable due to maintenance.
+* Added a new error code :c:macro:`LWM2M_CARRIER_ERROR_SERVICE_UNAVAILABLE` that indicates that the LwM2M server is unavailable due to maintenance.
 
 liblwm2m_carrier 0.10.2
 ***********************

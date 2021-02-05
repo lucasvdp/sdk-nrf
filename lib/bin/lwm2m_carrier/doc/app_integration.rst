@@ -47,14 +47,14 @@ During self-testing of the certification process, you can provide the initializa
 
 A PSK *Identity* is automatically generated and handled by the LwM2M carrier library.
 It is used for the bootstrap server transactions.
-A PSK *Key*  should be provided through the :option:`CONFIG_LWM2M_CARRIER_USE_CUSTOM_BOOTSTRAP_PSK` option only if the carrier explicitly states to not use the carrier default.
+A PSK *Key*  must be provided through the :option:`CONFIG_LWM2M_CARRIER_USE_CUSTOM_BOOTSTRAP_PSK` option only if the carrier explicitly states to not use the carrier default.
 
 .. note::
    A change of the bootstrap server URI between builds does not trigger a new bootstrap.
-   The bootstrap process is intended to happen only once, unless it is initiated from the server.
+   The bootstrap process is intended to happen only once unless it is initiated from the server.
    To redo the bootstrap process, you must erase the flash and then load your application again.
 
-For a production build, the :c:func:`lwm2m_carrier_init` function should always be initialized without parameters.
+For a production build, the :c:func:`lwm2m_carrier_init` function must always be initialized without parameters.
 After calling the :c:func:`lwm2m_carrier_init` function, your application can call the non-returning function :c:func:`lwm2m_carrier_run` in its own thread.
 Both these functions are called in :file:`nrf\\lib\\bin\\lwm2m_carrier\\os\\lwm2m_carrier.c`, which is included into the project when you enable the LwM2M carrier library.
 
@@ -73,6 +73,13 @@ LwM2M carrier library events
    This event indicates that the :ref:`nrf_modem` is initialized and can be used.
    (See :ref:`req_appln_limitations`).
 
+:c:macro:`LWM2M_CARRIER_EVENT_CERTS_INIT`
+   This event indicates that the CA certificates must be provisioned to the modem by the application.
+   The LwM2M carrier library expects the application to assign the event data :c:member:`lwm2m_carrier_event_t.data` to a structure :c:type:`ca_cert_tags_t`.
+   This structure must contain the security tags that indicate where the CA certificates are stored in the modem.
+   See :ref:`lwm2m_carrier` library for an example of how these certificates are written to the modem using :ref:`modem_key_mgmt` library.
+   The LwM2M carrier library will apply these certificates during certain out-of-band FOTA operations.
+
 :c:macro:`LWM2M_CARRIER_EVENT_CONNECTING`, :c:macro:`LWM2M_CARRIER_EVENT_CONNECTED`, :c:macro:`LWM2M_CARRIER_EVENT_DISCONNECTING`, :c:macro:`LWM2M_CARRIER_EVENT_DISCONNECTED`
    These events indicate that the device is connecting to or disconnecting from the LTE network.
    They occur during the bootstrapping process, startup, and during FOTA.
@@ -83,7 +90,7 @@ LwM2M carrier library events
 
 :c:macro:`LWM2M_CARRIER_EVENT_LTE_READY`
    This event indicates that the device is registered to the LTE network (home or roaming).
-   The bootstrap sequence is complete and the application can use the LTE link.
+   The bootstrap sequence is complete, and the application can use the LTE link.
 
 :c:macro:`LWM2M_CARRIER_EVENT_REGISTERED`
    This event indicates that the device has registered successfully to the carrier's device management servers.
@@ -124,7 +131,7 @@ LwM2M carrier library events
 
 :c:macro:`LWM2M_CARRIER_EVENT_FOTA_START`
    This event indicates that the modem update has started.
-   The application should immediately terminate any open TLS sessions.
+   The application must immediately terminate any open TLS sessions.
    See :ref:`req_appln_limitations`.
 
 :c:macro:`LWM2M_CARRIER_EVENT_REBOOT`
@@ -168,6 +175,7 @@ LwM2M carrier library events
    :c:macro:`LWM2M_CARRIER_ERROR_FOTA_FAIL`
       This error indicates a failure in applying a valid update.
       If this error persists, create a ticket in `DevZone`_ with the modem trace.
+
 
 Device objects
 **************
