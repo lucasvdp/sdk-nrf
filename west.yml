@@ -33,6 +33,8 @@ manifest:
       url-base: https://github.com/alexa
     - name: nordicsemi
       url-base: https://github.com/NordicSemiconductor
+    - name: lemrey
+      url-base: https://github.com/lemrey
 
   # If not otherwise specified, the projects below should be obtained
   # from the ncs remote.
@@ -51,8 +53,9 @@ manifest:
     # https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/introduction/index.html
     # https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/guides/modules.html
     - name: zephyr
+      remote: lemrey
       repo-path: sdk-zephyr
-      revision: a9d3aef6542445d553614bd723e75e5ee9fb4e45
+      revision: pdn
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -99,7 +102,7 @@ manifest:
     - name: nrfxlib
       repo-path: sdk-nrfxlib
       path: nrfxlib
-      revision: fb936182435a1ae90fafbb8840e70a45d6f99a4e
+      revision: pull/459/head
     - name: trusted-firmware-m
       repo-path: sdk-trusted-firmware-m
       path: modules/tee/tfm
