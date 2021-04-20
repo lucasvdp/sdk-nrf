@@ -286,9 +286,13 @@ static int z_to_nrf_flags(int z_flags)
 
 static int z_to_nrf_addrinfo_flags(int flags)
 {
-	/* Flags not implemented.*/
-	ARG_UNUSED(flags);
-	return 0;
+	switch (flags) {
+	default:
+		/* no other flags supported */
+		return 0;
+	case AI_PDNSERV:
+		return NRF_AI_PDNSERV;
+	}
 }
 
 static int nrf_to_z_addrinfo_flags(int flags)
