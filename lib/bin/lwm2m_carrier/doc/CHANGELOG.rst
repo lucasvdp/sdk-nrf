@@ -38,6 +38,21 @@ Certification status
 
 For certification status, see `Mobile network operator certifications`_.
 
+Size
+====
+
+See :ref:`lwm2m_lib_size` for an explanation of the library size in different scenarios.
+
++-------------------------+---------------+------------+
+|                         | Flash (Bytes) | RAM (Bytes)|
++-------------------------+---------------+------------+
+| Library size            | 61728         | 10226      |
+| (binary)                |               |            |
++-------------------------+---------------+------------+
+| Library size            | 97116         | 29552      |
+| (reference application) |               |            |
++-------------------------+---------------+------------+
+
 Changes
 =======
 
