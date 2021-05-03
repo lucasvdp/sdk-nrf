@@ -25,6 +25,7 @@ Below are some of the requirements and limitations of the application while runn
    * Packet Domain events (AT+CGEREP).
    * Report Network Error Codes events (AT+CNEC): EPS Session Management events are used by the LwM2M carrier library. The application may enable or disable EPS Mobility Management events.
    * Network Registration Status events (AT+CEREG): Notification Level 2 is used by the LwM2M carrier library. The application may increase this level but must not decrease it.
+   * Extended signal quality events (AT+CESQ).
 
 * The LwM2M carrier library controls the LTE link.
 
