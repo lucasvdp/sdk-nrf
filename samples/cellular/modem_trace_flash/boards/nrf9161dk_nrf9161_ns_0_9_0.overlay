@@ -29,19 +29,31 @@
 	};
 };
 
-/delete-node/ &gd25wb256;
-
-/ {
-	chosen {
-		nordic,pm-ext-flash = &gd25lb256;
-	};
-
-	aliases {
-		ext-flash = &gd25lb256;
+/* Enable high drive mode for the SPI3 pins to get a square signal at 8 MHz */
+&spi3_default {
+	group1 {
+		nordic,drive-mode = <NRF_DRIVE_H0H1>;
 	};
 };
 
-&gd25lb256 {
+/* Enable UART1 at 1 megabaud for printing modem traces  */
+&uart1 {
+	status = "okay";
+	current-speed = <1000000>;
+};
+
+/ {
+	aliases {
+		ext-flash = &gd25wb256;
+	};
+
+	/* Configure partition manager to use gd25wb256 as the external flash */
+	chosen {
+		nordic,pm-ext-flash = &gd25wb256;
+	};
+};
+
+&gd25wb256 {
 	status = "okay";
 
 	partitions {
@@ -54,10 +66,4 @@
 			reg = <0x00000000 0x400000>;
 		};
 	};
-};
-
-/* Enable UART1 at 1 megabaud for printing modem traces  */
-&uart1 {
-	status = "okay";
-	current-speed = <1000000>;
 };
