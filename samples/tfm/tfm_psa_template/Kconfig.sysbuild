@@ -6,6 +6,9 @@
 
 if BOARD_NRF5340DK_NRF5340_CPUAPP_NS
 
+config PARTITION_MANAGER
+	default n if !SOC_SERIES_NRF53
+
 choice NETCORE
 	default NETCORE_EMPTY
 endchoice
